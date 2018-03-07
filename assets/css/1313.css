@@ -2,6 +2,11 @@
   background-color : #eeeeee;
 }
 
+.greenButton {
+  background-color : rgba(124,252,0,0.3);
+}
+
+
 /* Class to hide additional accessibiltiy labels */
 .accessibility-helper {
   border: 0px none;
@@ -106,6 +111,7 @@ input[type=number]::-webkit-inner-spin-button {
 .grey {
   color: #999;
 }
+
 
 .delay {
   color : red;

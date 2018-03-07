@@ -1,11 +1,16 @@
-whitelabel - A clean journey planner interface
+RailRunners - A journey planner for fast walkers.
 ==============================================
 
-In our quest for building fast journey planners we realised that a clean webinterface, accessible by anyone, is a must have.
-The interface is designed in such way a screenreader, mobile phone or desktop browser should have the same user experience.
+Extending the typical route planners by providing an option to speed-up walking distances; in order for you to catch faster routes to your final destination!
+
+Largely based on 1313.nl
 
 This project builds on top of several foundations:
  - jQuery
  - a geocoder infrastructure (GeoJSON)
  - a journey planner (OpenTripPlannerJSON)
  
+
+
+
+
