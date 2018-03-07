@@ -22,9 +22,9 @@ body, html {
 
 /* testiing contact button met juiste positie */
 
-#bla {
+/* #bla {
     float: right;
-}
+} */
 
 .box1 {
   width: 33%;
@@ -33,19 +33,30 @@ body, html {
   margin-left: 5px;
   text-align: left;
   padding-bottom: 10px;
+  font-family: inherit;
+  font-size: 12px;
+  color: white;
+  font-weight: 300px;
 }
 
 .box2 {
   width: 33%;
   background-color: transparent;
   display: inline-block;
+  font-family: inherit;
+  font-size: 12px;
+  color: white;
+  font-weight: 300px;
 }
 
 .box3 {
   width: 33%;
   background-color: transparent;
   display: inline-block;
-  font-size: 10px;
+  font-family: inherit;
+  font-size: 12px;
+  color: white;
+  font-weight: 300px;
 }
 
 
