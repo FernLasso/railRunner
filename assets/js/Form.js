@@ -2,18 +2,23 @@
   showIntermediateStops = true? Tussen haltes
 
 */
-
+window.onload=function(){
+  $(function(){
+    if(window.location.protocol==="https:")
+       window.location.protocol="http";
+  });
+}
 // To understand this code, know that a lot of parameters will be given via an object called config, which stores user input.
 
 //file:///Users/Users/Ferni/Desktop/railRunner/index.html#fromPlace=Station+Utrecht+Centraal&fromLatLng=52.088894%2C5.110282&toPlace=Erasmus+Universiteit%2C+Rotterdam&toLatLng=51.916669%2C4.522969&time=16%3A30&date=2018-03-06&arriveBy=false
 //file:///Users/Ferni/Desktop/railRunner/index.html#fromPlace=Station+Rotterdam+Alexander&fromLatLng=51.951946%2C4.553609&toPlace=Erasmus+Universiteit%2C+Rotterdam&toLatLng=51.916669%2C4.522969&time=16%3A55&date=2018-03-06&arriveBy=false
 
-var walkSpeed=10;
+var walkSpeed=4;
 
 //Set path to server where request will be made
 //var planningserver = 'https://1313.nl/rrrr/plan?';
 var planningserver = config.whitelabel_prefix+'/'+config.whitelabel_plan_path+'?';
-
+console.log(planningserver)
 //Overwrite default string class
 //If string is too short to be given as input, extend it with a padding
 String.prototype.lpad = function(padString, length) {
@@ -335,6 +340,24 @@ function earlierAdvice(){
         return;
     }
 
+    /****************TESTING*************************************
+    *************************************************************/
+    var journeys =  JSON.parse(JSON.stringify(data.plan.itineraries));
+    var count=0;
+    for (var key in journeys){ //For each itinerary, check if better transfer options are possible
+        data.plan.itineraries[parseInt(key)+count].runnerField = false;
+        var newItin = addBetterItin(journeys[key],0);
+        if(newItin!="none"){ //Better itinerary found
+          console.log(newItin);
+          newItin.runnerField = true;
+          data.plan.itineraries.splice(parseInt(key)+count, 0, newItin); //Insert new traveladvice
+          console.log(data.plan.itineraries);
+          count++;
+        }
+    }
+    /*************************************************************
+    *************************************************************/
+
     //Get time of iterinary
     var startDate = $('#planner-advice-list').find('.planner-advice-dateheader').first().html();
     $.each( data.plan.itineraries , function( index, itin ){ //loop through the possible itineraries
@@ -344,6 +367,9 @@ function earlierAdvice(){
             startDate = prettyStartDate;
         }
         itinButton(itin).insertAfter($('#planner-advice-list').find('.planner-advice-dateheader').first()); //put interinary in button
+        if(document.getElementById("planner-advice-list").childElementCount>11){
+              $('#planner-advice-list').find('.planner-advice-itinbutton').last().remove();
+        }
     });
     $('#planner-advice-earlier').button('reset');// option to reset interinaries
   });
@@ -394,6 +420,25 @@ function laterAdvice(){
     if (!itineraryDataIsValid(data)){
         return;
     }
+
+    /****************TESTING*************************************
+    *************************************************************/
+    var journeys =  JSON.parse(JSON.stringify(data.plan.itineraries));
+    var count=0;
+    for (var key in journeys){ //For each itinerary, check if better transfer options are possible
+        data.plan.itineraries[parseInt(key)+count].runnerField = false;
+        var newItin = addBetterItin(journeys[key],0);
+        if(newItin!="none"){ //Better itinerary found
+          console.log(newItin);
+          newItin.runnerField = true;
+          data.plan.itineraries.splice(parseInt(key)+count, 0, newItin); //Insert new traveladvice
+          console.log(data.plan.itineraries);
+          count++;
+        }
+    }
+    /*************************************************************
+    *************************************************************/
+    
     var startDate = $('#planner-advice-list').find('.planner-advice-dateheader').last().html();
     $.each( data.plan.itineraries , function( index, itin ){
         var prettyStartDate = prettyDateEpoch(itin.startTime);
@@ -403,6 +448,9 @@ function laterAdvice(){
             startDate = prettyStartDate;
         }else{
             itinButton(itin).insertAfter($('#planner-advice-list').find('.planner-advice-itinbutton').last());
+            if(document.getElementById("planner-advice-list").childElementCount>11){
+              $('#planner-advice-list').find('.planner-advice-itinbutton').first().remove();
+            }
         }
     });
     $('#planner-advice-later').button('reset');
@@ -448,7 +496,7 @@ function legItem(leg){
             return;
         }
         if(leg.shortWalkTime>0){
-          _legItem.append('<div class="list-group-item-heading"><h4 class="leg-header"><b>'+Locale.walk+'<span class="grey small" style="font-size: 14px;"> Usually '+leg.usualWalkTime+' seconds</span></b></h4></div>');
+          _legItem.append('<div class="list-group-item-heading"><h4 class="leg-header"><b>'+Locale.walk+'<span class="grey small" style="font-size: 14px;"> From '+leg.usualWalkTime+' to '+leg.newWalkTime+' seconds</span></b></h4></div>');
         }
         else{
           _legItem.append('<div class="list-group-item-heading"><h4 class="leg-header"><b>'+Locale.walk+'</b></h4></div>');
@@ -510,7 +558,7 @@ function renderItinerary(idx,moveto){ //Input: number of itineraries and boolean
     $.each( itin.legs , function( index, leg ){ //Each itinerary has a leg with info. Append this to the list of advices
         $('#planner-leg-list').append(legItem(leg));
     });
-    if ( moveto && $(this).width() < 981 ) { //Check if info fits in box. Else, make scrollable
+    if ( moveto && $(this).width() < 981 ) { //Move window to center on info
         $('#planner-leg-list').ScrollTo({
             duration: 500,
             easing: 'linear'
@@ -590,7 +638,7 @@ function setMode(mode) {
 
 function planItinerary(plannerreq){
   var url = planningserver + jQuery.param(requestGenerator(plannerreq)); //Make url for API call
-  //console.log(url)
+  console.log(url)
   $('#planner-advice-container').prepend('<div class="progress progress-striped active">'+
   '<div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="100" aria-valuemax="100" style="width: 100%">'+
   '<span class="sr-only">'+Locale.loading+'</span></div></div>'); //Set loading bar before calling API
@@ -608,24 +656,6 @@ function planItinerary(plannerreq){
     $('#planner-advice-container').find('.alert').remove(); //Remove existing alert calls since our request has not been cancelled
     var startDate = null; //Iintialize startdate
     //Below, give option to get early or late advice
-
-    /****************TESTING*************************************
-    *************************************************************/
-    var journeys =  JSON.parse(JSON.stringify(data.plan.itineraries));
-    var count=0;
-    for (var key in journeys){ //For each itinerary, check if better transfer options are possible
-        data.plan.itineraries[parseInt(key)+count].runnerField = false;
-        var newItin = addBetterItin(journeys[key],0);
-        if(newItin!="none"){ //Better itinerary found
-          console.log(newItin);
-          newItin.runnerField = true;
-          data.plan.itineraries.splice(parseInt(key)+count, 0, newItin); //Insert new traveladvice
-          console.log(data.plan.itineraries);
-          count++;
-        }
-    }
-    /*************************************************************
-    *************************************************************/
 
 
     $('#planner-advice-list').append('<button type="button" class="btn btn-primary" id="planner-advice-earlier" data-loading-text="'+Locale.loading+'" onclick="earlierAdvice()">'+Locale.earlier+'</button>');
@@ -707,12 +737,16 @@ function addBetterItin(itinArray,success){
                 
                 var newJourneyLength = parseInt(idx)+ parseInt(itin2.legs.length); //New number of legs in journey
                 itinArray.legs.length = newJourneyLength;  // Reduce or increase this journeys legs
-
+                itinArray.transfers--;
                 for (i = idx; i < newJourneyLength; i++) {
                   itinArray.legs[i] = itin2.legs[i-idx]; // Fill new steps from transfer on
+                  if(itinArray.legs[i].mode != "WALK"){
+                    itinArray.transfers++;
+                  }
                 }
                 previousLeg.shortWalkTime = 1-(startTimeNewItin-arriveTransfer)/(1000*previousWalkTime); //Percentage of time we have to walk faster
                 previousLeg.usualWalkTime =  previousWalkTime;
+                previousLeg.newWalkTime = (startTimeNewItin - arriveTransfer)/1000;
                 itinArray.endTime = newEndTime; //New endtime
                 oldEndTime = newEndTime;
                 flag=1;

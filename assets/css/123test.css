@@ -22,11 +22,15 @@ body, html {
 }
 
 
+
 .Navbar01 {
     /* position: fixed; */
     margin-top: 0.5%;
     margin-right: 0.5%;
     float: right;
+    margin-left: 80%;
+    position: fixed;
+    border-style: dotted;
 }
 
 /* testiing contact button met juiste positie */
