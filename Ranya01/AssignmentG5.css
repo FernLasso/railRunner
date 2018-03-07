@@ -1,0 +1,197 @@
+/* Implementing salma's background */
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.Bgpicture {
+      /* The image used */
+      background-image: url("Opdracht02foto.jpg");
+
+      /* Full height */
+      height: 100%; 
+  
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      /* opacity: 0; */
+}
+
+
+/* testiing contact button met juiste positie */
+
+/* #bla {
+    float: right;
+} */
+
+.box1 {
+  width: 33%;
+  background-color: transparent;
+  display: inline-block;
+  margin-left: 5px;
+  text-align: left;
+  padding-bottom: 10px;
+  font-family: inherit;
+  font-size: 12px;
+  color: white;
+  font-weight: 300px;
+}
+
+.box2 {
+  width: 33%;
+  background-color: transparent;
+  display: inline-block;
+  font-family: inherit;
+  font-size: 12px;
+  color: white;
+  font-weight: 300px;
+}
+
+.box3 {
+  width: 33%;
+  background-color: transparent;
+  display: inline-block;
+  font-family: inherit;
+  font-size: 12px;
+  color: white;
+  font-weight: 300px;
+}
+
+
+.contact {
+  display: inline-block;
+}
+
+/* Navbar */
+/* Dropdown Button */
+.dropbtn {
+    background-color:transparent;
+    color: red;
+    padding: 16px;
+    font-size: 16px;
+    border: none;    
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    background-color: transparent;
+    /* float: right;  */
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: transparent;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: teal;
+    background-color:transparent;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: transparent}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color:transparent;
+}
+
+
+/* BEGIN Footer */
+
+.footer {
+    background-color:lightblue;
+    margin-bottom: 1px;
+    width: 100%;
+}
+
+.footer2 {
+    background:	lightblue;
+    height: 50px;
+    width: 1440;
+    padding-bottom: 20px;
+    margin-bottom: 1px;  
+    width: 100%;
+  }
+  
+  #textFooter {
+    color:#F8F8FF;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    font-weight: 100;
+  }
+  
+  #arrowFooter {
+    color: #F8F8FF;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+  }
+
+  .footer3 {
+    width: 100%;
+  }
+  
+  .footer-elements {
+    padding-top: 10px;
+    margin-right: -6%;
+  }
+  
+  /* Icoontjes aanpassen */
+  #icon {
+    color: white;
+    padding-top: 25px;
+    padding-right: 10px;
+  }
+  
+/* Overig */
+  .footer-items-wrapper {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    align-items: center;
+    margin-left: -2%;
+  }
+  
+  .footer-items-wrapper ul {
+    display: flex;
+    margin: 0;
+  }
+  
+  .footer-items-wrapper ul li {
+    margin: 0 15px;
+    list-style: none;
+  }
+  .maxHeight {
+    height: 100%;
+  }
+
+.tekstf3 {
+    margin-top: 0px;
+    padding-left: 40%;
+    background: lightblue;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+}
+  /*EINDE Footer  */
+
+

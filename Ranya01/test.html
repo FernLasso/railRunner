@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="test.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    </head>
+<body class="body">
+
+ <div id= "rechts" class="dropdown">
+      <button class="dropbtn">About Us</button>
+        <div class="dropdown-content">
+            <a style="text-decoration: none; color: white;" href="#">Team</a>
+            <a style="text-decoration: none; color: white;" href="#">Website</a>
+        </div>
+</div>
+                        
+<div id= "rechts" Class="contact"> 
+            <a href="file:///Users/RanyaJairi/Desktop/FinalAssignment/railRunner/Ranya01/test.html"><button class="dropbtn" >Contact us</button></a>
+</div>   
+
+    <div class="container">
+            <div style="text-align:center">
+              <h2>Contact Us</h2>
+              <p>Swing by for a cup of coffee, or leave us a message:</p>
+            </div>
+            <div class="row">
+              <div class="column">
+                <div id="map" style="width:100%;height:500px"></div>
+              </div>
+              <div class="column">
+                <form action="/action_page.php">
+                  <label for="fname">First Name</label>
+                  <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                  <label for="lname">Last Name</label>
+                  <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                  <label for="lname">Email address</label>
+                  <input type="text" id="lname" name="lastname" placeholder="Your email address..">
+                  <label for="subject">Message</label>
+                  <textarea id="subject" name="subject" placeholder="Tell us what's on your mind!                                                                   Just don't complain about how you're not as fast as what we thought you're.." style="height:170px"></textarea>
+                  <input type="submit" value="Submit">
+                </form>
+              </div>
+            </div>
+          </div>
+          
+        
+          <script>
+          function myMap() {
+            var myCenter = new google.maps.LatLng(51.9196482,4.524043500000062);
+            var mapCanvas = document.getElementById("map");
+            var mapOptions = {center: myCenter, zoom: 12};
+            var map = new google.maps.Map(mapCanvas, mapOptions);
+            var marker = new google.maps.Marker({position:myCenter});
+            marker.setMap(map);
+          }
+          </script>
+          
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
+
+<script>
+function myMap() {
+var mapProp= {
+    center:new google.maps.LatLng(51.9196482,4.524043500000062),
+    zoom:5,
+};
+var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
+
+</body>
+
+
+<footer class="footer3">
+    <div>	
+        <p class="tekstf3">&#169; Copyright 'Onze websitenaam' LLC </p>
+    </div>
+</footer>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</html>
