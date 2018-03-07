@@ -1,3 +1,65 @@
+.body {
+    background-color: lightblue;
+}
+
+.contact {
+    display: inline-block;
+    text-align: right;
+}
+
+
+/* Navbar */
+/* Dropdown Button */
+.dropbtn {
+    background-color:transparent;
+    color:white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    background-color: transparent;
+    /* float: right; */
+    
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: transparent;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    background-color:transparent;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color:transparent}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: transparent;
+}
+
+
 
 
 
@@ -6,34 +68,6 @@
     margin-bottom:5%;
     display: inline-block;
 }
-
-
-
-.grid01 {
-    display: grid;
-    grid-template-areas: " Area1 Area2"; 
-}
-
-.col01 {
-    grid-area: " Area1 ";
-
-}
-
-.col02 {
-    grid-area: " Area2 ";
-}
-
-
-
-h1 {
-    display: inline-block;
-}
-
-.adres {
-    display: inline-block;
-  
-}
-
 
 .footer3 {
     position:absolute;
@@ -52,9 +86,7 @@ h1 {
     font-weight: 300;
 }
 
-
-
-
+/* css for contact form + google maps thingy */
 * {
     box-sizing: border-box;
 }
@@ -63,14 +95,14 @@ h1 {
 input[type=text], select, textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid black;
+    border: 1px solid rgb(34, 27, 27);
     margin-top: 6px;
     margin-bottom: 16px;
     resize: vertical;
 }
 
 input[type=submit] {
-    background-color: grey;
+    background-color: lightblue;
     color: white;
     padding: 12px 20px;
     border: none;
