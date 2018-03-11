@@ -361,6 +361,8 @@ function earlierAdvice(){
           return;
       }
 
+
+
       /****************TESTING*************************************
       *************************************************************/
       var journeys =  JSON.parse(JSON.stringify(data.plan.itineraries));
@@ -369,7 +371,6 @@ function earlierAdvice(){
           data.plan.itineraries[parseInt(key)+count].runnerField = false;
           var newItin = addBetterItin(journeys[key],0);
           if(newItin!="none"){ //Better itinerary found
-
             newItin.runnerField = true;
             data.plan.itineraries.splice(parseInt(key)+count, 0, newItin); //Insert new traveladvice
             count++;
@@ -734,6 +735,22 @@ function planItinerary(plannerreq){
         return; //cancel
     }
     $('#planner-advice-container').find('.alert').remove(); //Remove existing alert calls since our request has not been cancelled
+    
+    /****************TESTING*************************************
+      *************************************************************/
+      var journeys =  JSON.parse(JSON.stringify(data.plan.itineraries));
+      var count=0;
+      for (var key in journeys){ //For each itinerary, check if better transfer options are possible
+          data.plan.itineraries[parseInt(key)+count].runnerField = false;
+          var newItin = addBetterItin(journeys[key],0);
+          if(newItin!="none"){ //Better itinerary found
+            newItin.runnerField = true;
+            data.plan.itineraries.splice(parseInt(key)+count, 0, newItin); //Insert new traveladvice
+            count++;
+          }
+      }
+      /*************************************************************
+      *************************************************************/
     var startDate = null; //Iintialize startdate
     //Below, give option to get early or late advice
 
@@ -807,7 +824,7 @@ function addBetterItin(itinArray,success){
             var newWalkTimeLimit = previousWalkTime/walkSpeed;
 
             if(startTimeNewItin > (arriveTransfer + newWalkTimeLimit)  && newEndTime < oldEndTime){ //Display for now only if startTime is possible when ignoring walking times and endTime is faster
-                
+                console.log("succes!")
                 var newJourneyLength = parseInt(idx)+ parseInt(itin2.legs.length); //New number of legs in journey
                 itinArray.legs.length = newJourneyLength;  // Reduce or increase this journeys legs
                 itinArray.transfers--;
