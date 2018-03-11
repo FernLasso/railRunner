@@ -1,6 +1,23 @@
-.body {
-    background-color: white;
+body{
+    background-color:grey;
 }
+
+/* 
+.backgroundpicture {
+    
+    /* The image used */
+    background-image: url("codingimg.png");
+
+    /* Full height */
+    height: 100%; 
+
+    
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+} */
 
 /* Navbar */
 /* Dropdown Button */

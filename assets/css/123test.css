@@ -1,36 +1,48 @@
 /* We geven als eerste aan dat de gehele website 100% height heeft om bg te plaatsen */
 
 body, html {
-    height: 100%;
-    margin: 0;
+  height: 100%;
+  margin: 0;
 
 
 }
 
 .Bgpicture {
-        /* The image used */
-        background-image: url("Opdracht02foto.jpg");
+      /* The image used */
+      background-image: url("Opdracht02foto.jpg");
 
-        /* Full height */
-        height: 100%; 
-    
-        /* Center and scale the image nicely */
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        /* opacity: 0; */
+      /* Full height */
+      height: 100%; 
+  
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      /* opacity: 0; */
 }
 
 
 
 .Navbar01 {
-    /* position: fixed; */
-    margin-top: 0.5%;
-    margin-right: 0.5%;
-    float: right;
-    margin-left: 80%;
-    position: fixed;
-    border-style: dotted;
+  margin: 0;
+  height: 7%;
+  /* float: right; */
+  /* margin-left: 80%; */
+  /* position: fixed; */
+}
+
+/* .Navbar01:hover {
+background-color: grey;
+} */
+
+.logorunning {
+display: inline-block;
+z-index: 2;
+border: solid;
+border-color: rgb(1, 101, 153);
+margin-left: 2%;
+margin-top: 1%;
+box-shadow: 2px 2px 4px #000000;
 }
 
 /* testiing contact button met juiste positie */
@@ -38,6 +50,7 @@ body, html {
 
 .box1 {
   width: 33%;
+  /* height: 25%; */
   background-color: transparent;
   display: inline-block;
   margin-left: 5px;
@@ -46,151 +59,189 @@ body, html {
 }
 
 .box2 {
-  width: 33%;
-  background-color: transparent;
-  display: inline-block;
+width: 33%;
+/* height: 25%; */
+background-color: transparent;
+display: inline-block;
+position: absolute;
+top: 5%;
 }
 
 .box3 {
-  width: 33%;
-  background-color: transparent;
-  display: inline-block;
-  font-size: 10px;
+width: 33%;
+/* height: 25%; */
+background-color: transparent;
+display: inline-block;
+font-size: 10px;
+position: absolute;
+top: 5%; 
+right: 1%;
+}
+
+.textbox {
+text-align: justify;
+font-weight: bold;
 }
 
 
-.contact {
-  display: inline-block;
+.boxinkorten {
+margin: 5%;
+}
+
+
+.firsttext h1 {
+/* display: inline-block; */
+color: white;
+font-family: Arial, Helvetica, sans-serif;
+/* font-weight: bold; */
+float: right;
+/* position: absolute; */
+margin-top: 5%;
+margin-right: 8%;
+font-size: 350%;
+text-shadow: 2px 2px 4px #000000;
+
+
 }
 
 /* Navbar */
-/* Dropdown Button */
+/* Dropdown Button 
+*/
 .dropbtn {
-    background-color:transparent;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;    
+  background-color:transparent;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;    
+  text-shadow: 2px 2px 4px #000000;
+
 }
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
-    position: relative;
-    display: inline-block;
-    background-color: transparent;
-    /* float: right;  */
+  position: relative;
+  /* display: inline-block; */
+  background-color: transparent;
+  float: right;
+  margin-top: 1%;
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: transparent;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+  display: none;
+  position: absolute;
+  background-color: transparent;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
 }
 
 /* Links inside the dropdown */
 .dropdown-content a {
-    color: teal;
-    background-color:transparent;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
+  color: teal;
+  background-color:transparent;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
 }
 
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: rgb(231, 231, 231);}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-    display: block;
+.dropbtn:hover {
+    background-color: rgb(1, 101, 153);
 }
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-    background-color:transparent;
-}
 
 
 /* BEGIN Footer */
 
-.footer {
-    background-color:lightblue;
-    margin-bottom: 1px;
-    width: 100%;
+
+
+.footer1 {
+  background-color: rgb(1, 101, 153);
+  margin-bottom: 1px;
+  width: 100%;
+  height: auto;
+  position: relative;
+  display: block;
+}
+
+.kopjefooter {
+text-align: center;
+font-weight: bold;
 }
 
 .footer2 {
-    background:	lightblue;
-    height: 50px;
-    width: 1440;
-    padding-bottom: 20px;
-    margin-bottom: 1px;  
-    width: 100%;
-  }
-  
-  #textFooter {
-    color:#F8F8FF;
-    font-family: 'Raleway', sans-serif;
-    font-size: 14px;
-    font-weight: 100;
-  }
-  
-  #arrowFooter {
-    color: #F8F8FF;
-    font-family: 'Raleway', sans-serif;
-    font-size: 14px;
-  }
+  background:	 rgb(1, 101, 153);
+  height: 50px;
+  /* width: 1440; */
+  padding-bottom: 20px;
+  margin-bottom: 0.5px;  
+  width: 100%;
+  display: block;
+}
 
-  .footer3 {
-    width: 100%;
-  }
-  
-  .footer-elements {
-    padding-top: 10px;
-    margin-right: -6%;
-  }
-  
-  /* Icoontjes aanpassen */
-  #icon {
-    color: white;
-    padding-top: 25px;
-    padding-right: 10px;
-  }
-  
+#textFooter {
+  color:#F8F8FF;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-weight: 100;
+}
+
+#arrowFooter {
+  color: #F8F8FF;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+}
+
+
+
+.footer3 {
+  width: 100%;
+  display: block;
+}
+
+.footer-elements {
+  padding-top: 10px;
+  margin-right: -6%;
+}
+
+/* Icoontjes aanpassen */
+#icon {
+  color: white;
+  padding-top: 25px;
+  padding-right: 10px;
+}
+
 /* Overig */
-  .footer-items-wrapper {
-    display: flex;
-    justify-content: space-between;
-    color: white;
-    align-items: center;
-    margin-left: -2%;
-  }
-  
-  .footer-items-wrapper ul {
-    display: flex;
-    margin: 0;
-  }
-  
-  .footer-items-wrapper ul li {
-    margin: 0 15px;
-    list-style: none;
-  }
-  .maxHeight {
-    height: 100%;
-  }
+.footer-items-wrapper {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  align-items: center;
+  margin-left: -2%;
+}
+
+.footer-items-wrapper ul {
+  display: flex;
+  margin: 0;
+}
+
+.footer-items-wrapper ul li {
+  margin: 0 15px;
+  list-style: none;
+}
+.maxHeight {
+  height: 100%;
+}
 
 .tekstf3 {
-    margin-top: 0px;
-    padding-left: 40%;
-    background: lightblue;
-    color: white;
-    font-family: 'Raleway', sans-serif;
-    font-size: 12px;
-    font-weight: 300;
+  margin: 0;
+  padding-left: 40%;
+  background:  rgb(1, 101, 153);
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
 }
-  /*EINDE Footer  */
+/*EINDE Footer  */
 
 

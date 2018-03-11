@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>OpenTripPlanner Reisplanner</title>
+        <title>Railrunners Reisplanner</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <script type="text/javascript" src="dist/js/modernizr.custom.05247.js"></script>
         <link rel="stylesheet" href="assets/css/bootstrap/jquery-ui-1.10.3.custom.css">
@@ -17,29 +17,34 @@
 
     <body>
        
+     <div class="BgPicture" >
+        
+        
         <div class="Navbar01">
 
-
+            <div id="logotest" class="logorunning"> <a href="index.html" style="text-decoration: none;"> <img src="assets/css/runninglogo.jpg" alt="Railrunner Homepage"/> </a> </div>
+        
             <div class="dropdown">
-                    <button class="dropbtn">About Us</button>
-                        <div class="dropdown-content">
+                <a href="BetterABOUT.html"><button class="dropbtn" title="Get To Know Us!">About Us</button></a>
+                        <!-- <div class="dropdown-content">
                             <a style="text-decoration: none; color:white;" href="#">Team</a>
                             <a style="text-decoration: none; color: white;" href="#">Website</a>
-                        </div>
-                </div>
+                        </div> -->
+                <a href="test.html"><button class="dropbtn" title="Get in Touch!">Contact us</button></a>
+            </div>
 
-                <div Class="contact">
-                        <a href="test.html"><button class="dropbtn" >Contact us</button></a>
-                    </div>  
-       
-                
+ 
+            <div class="firsttext"> <H1> Travel Advice For The Real RailRunners.</H1></div>
+
+
+
 
         </div>
                  
 
 
 
-        <div class="BgPicture" >
+
             <div class="container">
               <div class="plannerpanel planner-options planner-form" id="planner-options-panel">
                 <form role="form" class="planner-options-form validateDontSubmit" id="planner-options-form">
@@ -108,15 +113,11 @@
                 </div>
               </div>
             </div>
-        </div>
 
-        <div>
-            <p> hello </p>
-        </div>
 
- 
+        </div>
             
-            
+
             
             
             
@@ -127,10 +128,25 @@
             
             
                 <!-- Begin Footer -->
-                <footer class="footer">
-                    <div class="box1"   >RailRunner is a website meant to help anyone who is traveling with public transport, by providing them with real-time data about the whereabouts of their transportation vehicle. </div>
-                    <div class="box2"   >RailRunner.com uses the “WIENS API” API to collect the information needed to present you with the most accurate data possible.</div> 
-                    <div class="box3"   >The information contained in this website is for general information purposes only. The information is provided by {Wie hebben weand while we endeavour to keep the information up to date and correct. Any reliance you place on such information is therefore strictly at your own risk.</div> 
+                <footer class="footer1">
+                    <div class="box1"  >
+                        <div class="boxinkorten" >
+                        <h5 class="kopjefooter">RailRunners</h5>
+                        <p class="textbox">RailRunners is a website meant to help anyone who is traveling with public transport, by providing them with real-time data about the whereabouts of their transportation vehicle. The uniqueness of RailRunenrs comes into light with the abiliy to offer alternative travel advice that can spare you a lot of time. And as we all know, time is money. Railrunners therefore created an algorithm that calculates alternatives with the option of walking faster than normally is expected. As common rail runners, we know that a bit of running can change your day. </p>
+                        </div>
+                    </div>
+                    <div class="box2"  > 
+                        <div class="boxinkorten" >
+                        <h5 class="kopjefooter">API Usage</h5> 
+                        <p class="textbox">RailRunner.com uses the “WIENS API” API to collect the information needed to present you with the most accurate data possible.</p>
+                        </div>
+                    </div>
+                    <div class="box3"  > 
+                        <div class="boxinkorten" >
+                        <h5 class="kopjefooter" id="Disclaimerkopje" >Disclaimer</h5>  
+                        <p class="textbox">The information contained in this website is for general information purposes only. The information is provided by www.1313.nl while we endeavour to keep the information up to date and correct. Any reliance you place on such information is therefore strictly at your own risk. </p>
+                        </div> 
+                    </div>
                 </footer>
             
                 <footer class="footer2"> 
@@ -152,25 +168,19 @@
                                         <span id= "arrowFooter">
                                             <i class="fas fa-angle-right "></i>
                                         </span>
-                                        <span id= "textFooter">About Us</span>
+                                        <a href="about.html" ><span id= "textFooter">About Us</span> </a>
                                     </li>
                                     <li>
                                         <span id= "arrowFooter">
                                             <i class="fas fa-angle-right "></i>
                                         </span>
-                                        <span id= "textFooter">Contact</span>
+                                        <a href="test.html" > <span id= "textFooter">Contact</span> </a>
                                     </li>
                                     <li>
                                         <span id= "arrowFooter">
                                             <i class="fas fa-angle-right "></i>
                                         </span>
-                                        <span id= "textFooter">Disclaimer</span>
-                                    </li>
-                                    <li>
-                                        <span id= "arrowFooter">
-                                            <i class="fas fa-angle-right "></i>
-                                        </span>
-                                        <span id= "textFooter">Privacy</span>
+                                        <a href="#Disclaimerkopje" ><span id= "textFooter">Disclaimer</span> </a>
                                     </li>
                                   </ul>
                             </div>
@@ -181,7 +191,7 @@
             
             <footer class="footer3">
                     <div>	
-                        <p class="tekstf3">&#169; Copyright RailRunner LLC </p>
+                        <p class="tekstf3">&#169; Copyright RailRunners LLC </p>
                     </div>
                 </footer>
 

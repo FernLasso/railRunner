@@ -7,7 +7,7 @@
 }
 
 .greenButton {
-  background-color : rgba(124,252,0,1);
+  background-color : 	#50BFE6;
 }
 
 #Advice_panel{
@@ -16,7 +16,12 @@
 
 #planner-options-panel{
   margin-top:10%;
+  position: relative;
+
+
 }
+
+
 
 /* Class to hide additional accessibiltiy labels */
 .accessibility-helper {
@@ -34,12 +39,12 @@
   padding : 24px;
   margin-left: auto;
   margin-right: auto;
-  background-color:yellow;
+  background-color: transparent;
 }
 
-.planner-options {
+/* .planner-options {
   border-bottom: 1px solid #e5e5e5;
-}
+} */
 
 /* Customize container */
 @media (min-width: 768px) {
@@ -52,7 +57,7 @@
   }
   
   .planner-summary {
-    margin-top: 18px;
+    margin-top: 1 8px;
   }
 
   #planner-leg-list.affix {
@@ -63,7 +68,12 @@
 
 #planner-leg-list{
     background-color: white;
+    border: solid; 
+    border-color:black;
+    border-radius: 3px;
+    box-shadow: 2px 2px 4px #000000;
   }
+
 
 @media (max-width: 768px) {
   .affix {
@@ -80,6 +90,24 @@ input[type=number]::-webkit-inner-spin-button {
 /* Equal sizes for input-group-addons in the planner-options panel */
 .planner-options-input-addon{
   min-width : 5em;
+}
+
+#planner-options-desc{
+font-size: 500px;
+}
+
+/* #planner-options-submit{
+  border: solid;
+border-radius: 5px;
+border-color: black;
+} */
+
+#planner-options-edit{
+border: solid;
+border-radius: 5px;
+border-color: black; 
+box-shadow: 2px 2px 4px #000000;
+
 }
 
 .planner-options-dateinput{
@@ -112,12 +140,23 @@ input[type=number]::-webkit-inner-spin-button {
   color: white;
 }
 
+#planner-advice-earlier{
+  background-color: black;
+  border-color: black;
+}
+
+
+#planner-advice-later{
+  background-color: black;
+  border-color: black;
+}
 #planner-advice-list{
   display: table;
   width: 100%; 
   height:100px;
   overflow:hidden; 
   overflow-y:scroll;
+  box-shadow: 5px 5px 4px #000000;
 }
 
 .leg-header{
