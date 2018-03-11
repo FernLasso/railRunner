@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="assets/css/test.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/contact.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     </head>
@@ -9,9 +9,9 @@
 
     <div>
         <div class="Navbar01">
-            <div id="logotest" class="logorunning"> <a href="index.html" style="text-decoration: none;"> <img src="assets/css/runninglogo.jpg" alt="Railrunner Homepage"/> </a> </div>
+            <div id="logotest" class="logorunning"> <a href="index.html" style="text-decoration: none;"> <img src="assets/css/bunnylogo.png" alt="Railrunner Homepage"/> </a> </div>
             <a href="index.html"><button class="dropbtn extraalingbttn">Travel Planner</button>
-            <a href="BetterABOUT.html"><button class="dropbtn" >About Us</button></a>
+            <a href="about.html"><button class="dropbtn" >About Us</button></a>
         </div>
     </div>
 
@@ -31,11 +31,11 @@
                   <input type="text" id="fname" name="firstname" placeholder="Your name..">
                   <label for="lname">Last Name</label>
                   <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-                  <label for="lname">Email address</label>
-                  <input type="text" id="lname" name="lastname" placeholder="Your email address..">
+                  <label for="topic">Subject</label>
+                  <input type="text" id="topic" name="subject" placeholder="What is it about?">
                   <label for="subject">Message</label>
-                  <textarea id="subject" name="subject" placeholder="Tell us what's on your mind!                                                                   Just don't complain about how you're not as fast as what we thought you're.." style="height:170px"></textarea>
-                  <input type="submit" value="Submit">
+                  <textarea id="subject" name="subject" placeholder="Tell us what's on your mind!                                                                   Just don't complain about how you're not as fast as what we thought you would be.." style="height:170px"></textarea>
+                  <input onclick="submitText()" type="submit" value="Submit">
                 </form>
               </div>
             </div>
@@ -43,14 +43,22 @@
           
         
           <script>
-          function myMap() {
-            var myCenter = new google.maps.LatLng(51.9196482,4.524043500000062);
-            var mapCanvas = document.getElementById("map");
-            var mapOptions = {center: myCenter, zoom: 12};
-            var map = new google.maps.Map(mapCanvas, mapOptions);
-            var marker = new google.maps.Marker({position:myCenter});
-            marker.setMap(map);
-          }
+            function myMap() {
+                var myCenter = new google.maps.LatLng(51.9196482,4.524043500000062);
+                var mapCanvas = document.getElementById("map");
+                var mapOptions = {center: myCenter, zoom: 12};
+                var map = new google.maps.Map(mapCanvas, mapOptions);
+                var marker = new google.maps.Marker({position:myCenter});
+                marker.setMap(map);
+            }
+            function submitText() {
+                ebody = document.getElementById("subject").value+"\r\n\r\nGreetings,\r\n"+
+                            document.getElementById("fname").value+' '+document.getElementById("lname").value;
+                ebody = encodeURIComponent(ebody);
+                window.open('mailto:fernandomlassop@gmail.com?subject='+document.getElementById("topic").value+'&body='+ebody+
+                            '&cc=ranyabellouki@gmail.com,selma_1994@hotmail.com');
+            
+            }
           </script>
           
           <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
@@ -65,17 +73,20 @@ var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
 }
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
 
 </body>
 
 
+<div class = 'footer'>
+        <footer >
+                <div>	
+                        <p class="tekstf3">&#169; Copyright RailRunners LLC </p>
+                </div>
+        </footer>
 
-<footer class="footer3">
-    <div>	
-        <p class="tekstf3">&#169; Copyright 'RailRunners' LLC </p>
-    </div>
-</footer>
+      
+      </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

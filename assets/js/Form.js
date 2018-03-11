@@ -317,66 +317,100 @@ function earlierAdvice(){
   if (!itineraries){
      return false;
   }
-  
-  $('#planner-advice-earlier').button('loading');// Loading button to signal to user
-  
-  var minEpoch = 9999999999999;//Lol jst a large number
-  $.each( itineraries , function( index, itin ){
-      if (itin.endTime < minEpoch){
-          minEpoch = itin.endTime; //  Keep track of the fastest epoch
+  while(document.getElementById("planner-advice-list").childNodes[document.getElementById("planner-advice-list").childNodes.length-2].className=='planner-advice-dateheader'){
+    document.getElementById("planner-advice-list").childNodes[document.getElementById("planner-advice-list").childNodes.length-2].remove();
+  }
+  $('#planner-advice-list').find('.planner-advice-itinbutton').last().find('.planner-advice-dateheader').remove();
+  if(earlier_itineraries.length>0){
+      var startDate = $('#planner-advice-list').find('.planner-advice-dateheader').first().html();
+      for (i = 0, l = Math.min(earlier_itineraries.length,3); i < l; i++) {
+          itin = earlier_itineraries.pop();
+          var prettyStartDate = prettyDateEpoch(itin.startTime); //Make date time readible for user
+          if (startDate != prettyStartDate){ 
+              $('<div class="planner-advice-dateheader">'+prettyStartDate+'</div>').insertAfter('#planner-advice-earlier');
+              startDate = prettyStartDate;
+          }
+          itinButton(itin,'f').insertAfter($('#planner-advice-list').find('.planner-advice-dateheader').first()); //put interinary in button
+          if(document.getElementById("planner-advice-list").childElementCount>11){
+                $('#planner-advice-list').find('.planner-advice-itinbutton').last().remove();
+                later_itineraries.push(itineraries.pop());
+          }
+          //itineraries.unshift(itin);
       }
-  });
-
-  var plannerreq = makePlanRequest(); // Just fill the variable with necessary info
-  plannerreq.arriveBy = true; //I guess the time given by user should be set to arrive by
-  minEpoch -= 60*1000; //Still have to figure what he's doin here. Probably API returns a time in the format 6xxxxx
-  plannerreq.date = epochtoIS08601date(minEpoch); //Something with converting epochs to time
-  plannerreq.time = epochtoIS08601time(minEpoch);// and date
-
-  var url = planningserver + jQuery.param(requestGenerator(plannerreq)); //Construct the API call url here!
-
-  $.get( url, function( data ) { //Get data from url
-    if ( !itineraryDataIsValid(data) ){ //Check if API call returned data
-        return;
-    }
-
-    /****************TESTING*************************************
-    *************************************************************/
-    var journeys =  JSON.parse(JSON.stringify(data.plan.itineraries));
-    var count=0;
-    for (var key in journeys){ //For each itinerary, check if better transfer options are possible
-        data.plan.itineraries[parseInt(key)+count].runnerField = false;
-        var newItin = addBetterItin(journeys[key],0);
-        if(newItin!="none"){ //Better itinerary found
-          console.log(newItin);
-          newItin.runnerField = true;
-          data.plan.itineraries.splice(parseInt(key)+count, 0, newItin); //Insert new traveladvice
-          console.log(data.plan.itineraries);
-          count++;
-        }
-    }
-    /*************************************************************
-    *************************************************************/
-
-    //Get time of iterinary
-    var startDate = $('#planner-advice-list').find('.planner-advice-dateheader').first().html();
-    $.each( data.plan.itineraries , function( index, itin ){ //loop through the possible itineraries
-        var prettyStartDate = prettyDateEpoch(itin.startTime); //Make date time readible for user
-        if (startDate != prettyStartDate){ // Not sure why this would happen but may depend on type of API used.
-            $('<div class="planner-advice-dateheader">'+prettyStartDate+'</div>').insertAfter('#planner-advice-earlier');
-            startDate = prettyStartDate;
-        }
-        itinButton(itin).insertAfter($('#planner-advice-list').find('.planner-advice-dateheader').first()); //put interinary in button
-        if(document.getElementById("planner-advice-list").childElementCount>11){
-              $('#planner-advice-list').find('.planner-advice-itinbutton').last().remove();
+  }
+  else{
+    $('#planner-advice-earlier').button('loading');// Loading button to signal to user
+    
+    var minEpoch = 9999999999999;//Lol jst a large number
+    $.each( itineraries , function( index, itin ){
+        if (itin.endTime < minEpoch){
+            minEpoch = itin.endTime; //  Keep track of the earliest iterinary in the list
         }
     });
-    $('#planner-advice-earlier').button('reset');// option to reset interinaries
-  });
+
+    var plannerreq = makePlanRequest(); // Just fill the variable with necessary info
+    plannerreq.arriveBy = true; //I guess the time given by user should be set to arrive by
+    minEpoch -= 60*1000; //Find trips that go one minute before this one
+    plannerreq.date = epochtoIS08601date(minEpoch); //Something with converting epochs to time
+    plannerreq.time = epochtoIS08601time(minEpoch);// and date
+
+    var url = planningserver + jQuery.param(requestGenerator(plannerreq)); //Construct the API call url here!
+
+    $.get( url, function( data ) { //Get data from url
+      if ( !itineraryDataIsValid(data) ){ //Check if API call returned data
+          return;
+      }
+
+      /****************TESTING*************************************
+      *************************************************************/
+      var journeys =  JSON.parse(JSON.stringify(data.plan.itineraries));
+      var count=0;
+      for (var key in journeys){ //For each itinerary, check if better transfer options are possible
+          data.plan.itineraries[parseInt(key)+count].runnerField = false;
+          var newItin = addBetterItin(journeys[key],0);
+          if(newItin!="none"){ //Better itinerary found
+
+            newItin.runnerField = true;
+            data.plan.itineraries.splice(parseInt(key)+count, 0, newItin); //Insert new traveladvice
+            count++;
+          }
+      }
+      /*************************************************************
+      *************************************************************/
+
+      //Get time of iterinary
+      var startDate = $('#planner-advice-list').find('.planner-advice-dateheader').first().html();
+      $.each( data.plan.itineraries , function( index, itin ){ //loop through the possible itineraries
+          var prettyStartDate = prettyDateEpoch(itin.startTime); //Make date time readible for user
+          if (startDate != prettyStartDate){ // Not sure why this would happen but may depend on type of API used.
+              $('<div class="planner-advice-dateheader">'+prettyStartDate+'</div>').insertAfter('#planner-advice-earlier');
+              startDate = prettyStartDate;
+          }
+          itinButton(itin,'f').insertAfter($('#planner-advice-list').find('.planner-advice-dateheader').first()); //put interinary in button
+          
+          if(document.getElementById("planner-advice-list").childElementCount>11){
+                 
+                $('#planner-advice-list').find('.planner-advice-itinbutton').last().remove();
+                later_itineraries.push(itineraries.pop());  
+          }
+      });
+      var maxEpoch = 0;
+      $.each( itineraries , function( index, itin ){
+        if (itin.startTime > maxEpoch){
+            maxEpoch = itin.startTime;
+        }
+      });
+      maxEpoch += 120*1000;
+      $('#planner-advice-earlier').button('reset');// option to reset interinaries
+    });
+  }
+  while(document.getElementById("planner-advice-list").childNodes[document.getElementById("planner-advice-list").childNodes.length-2].className=='planner-advice-dateheader'){
+    document.getElementById("planner-advice-list").childNodes[document.getElementById("planner-advice-list").childNodes.length-2].remove();
+  }
   return false;
 }
 
-// Set buttons for iterinary.
+/* Set buttons for iterinary.
 function itinButton(itin){
     //Uses number of iternaries to make appropriate number of button
     var _itinButton = $('<button type="button" class="btn btn-default" onclick="renderItinerary('+itineraries.length+',true)"></button>');
@@ -386,6 +420,7 @@ function itinButton(itin){
     _itinButton.append('<div>'+Locale.amountTransfers(itin.transfers)+'</div>');
     return _itinButton;
 }
+*/
 
 //Method to check validity of iterninaries depending on different sources.
 function itineraryDataIsValid (data) {
@@ -403,58 +438,89 @@ function laterAdvice(){
   if (!itineraries){
      return false;
   }
-  $('#planner-advice-later').button('loading');
-  var maxEpoch = 0;
-  $.each( itineraries , function( index, itin ){
-      if (itin.startTime > maxEpoch){
-          maxEpoch = itin.startTime;
+  while(document.getElementById("planner-advice-list").childNodes[1].className=='planner-advice-dateheader' &&
+          document.getElementById("planner-advice-list").childNodes[2].className=='planner-advice-dateheader'){
+    document.getElementById("planner-advice-list").childNodes[1].remove();
+  }
+  if(later_itineraries.length>0){
+      for (i = 0, l = Math.min(later_itineraries.length,4); i < l; i++) {
+          var startDate = $('#planner-advice-list').find('.planner-advice-dateheader').first().html();
+          itin = later_itineraries.pop();
+          var prettyStartDate = prettyDateEpoch(itin.startTime);
+          if (startDate != prettyStartDate){
+              $(('<div class="planner-advice-dateheader">'+prettyStartDate+'</div>')).insertAfter($('#planner-advice-list').find('.planner-advice-itinbutton').last());
+              itinButton(itin,'l').insertAfter($('#planner-advice-list').find('.planner-advice-dateheader').last());
+              startDate = prettyStartDate;
+          }else{
+              itinButton(itin,'l').insertAfter($('#planner-advice-list').find('.planner-advice-itinbutton').last());
+              
+          }
+          if(document.getElementById("planner-advice-list").childElementCount>11){
+                $('#planner-advice-list').find('.planner-advice-itinbutton').first().remove();
+                earlier_itineraries.push(itineraries.shift());
+              }
+          //itineraries.push(itin);
       }
-  });
-  maxEpoch += 120*1000;
-  var plannerreq = makePlanRequest();
-  plannerreq.arriveBy = false;
-  plannerreq.date = epochtoIS08601date(maxEpoch);
-  plannerreq.time = epochtoIS08601time(maxEpoch);
-  var url = planningserver + jQuery.param(requestGenerator(plannerreq));
-  $.get( url, function( data ) {
-    if (!itineraryDataIsValid(data)){
-        return;
-    }
-
-    /****************TESTING*************************************
-    *************************************************************/
-    var journeys =  JSON.parse(JSON.stringify(data.plan.itineraries));
-    var count=0;
-    for (var key in journeys){ //For each itinerary, check if better transfer options are possible
-        data.plan.itineraries[parseInt(key)+count].runnerField = false;
-        var newItin = addBetterItin(journeys[key],0);
-        if(newItin!="none"){ //Better itinerary found
-          console.log(newItin);
-          newItin.runnerField = true;
-          data.plan.itineraries.splice(parseInt(key)+count, 0, newItin); //Insert new traveladvice
-          console.log(data.plan.itineraries);
-          count++;
-        }
-    }
-    /*************************************************************
-    *************************************************************/
-    
-    var startDate = $('#planner-advice-list').find('.planner-advice-dateheader').last().html();
-    $.each( data.plan.itineraries , function( index, itin ){
-        var prettyStartDate = prettyDateEpoch(itin.startTime);
-        if (startDate != prettyStartDate){
-            $(('<div class="planner-advice-dateheader">'+prettyStartDate+'</div>')).insertAfter($('#planner-advice-list').find('.planner-advice-itinbutton').last());
-            itinButton(itin).insertAfter($('#planner-advice-list').find('.planner-advice-dateheader').last());
-            startDate = prettyStartDate;
-        }else{
-            itinButton(itin).insertAfter($('#planner-advice-list').find('.planner-advice-itinbutton').last());
-            if(document.getElementById("planner-advice-list").childElementCount>11){
-              $('#planner-advice-list').find('.planner-advice-itinbutton').first().remove();
-            }
+  }
+  else{
+    $('#planner-advice-later').button('loading');
+    var maxEpoch = 0;
+    $.each( itineraries , function( index, itin ){
+        if (itin.startTime > maxEpoch){
+            maxEpoch = itin.startTime;
         }
     });
-    $('#planner-advice-later').button('reset');
-  });
+    maxEpoch += 120*1000;
+    var plannerreq = makePlanRequest();
+    plannerreq.arriveBy = false;
+    plannerreq.date = epochtoIS08601date(maxEpoch);
+    plannerreq.time = epochtoIS08601time(maxEpoch);
+    var url = planningserver + jQuery.param(requestGenerator(plannerreq));
+    $.get( url, function( data ) {
+      if (!itineraryDataIsValid(data)){
+          return;
+      }
+
+      /****************TESTING*************************************
+      *************************************************************/
+      var journeys =  JSON.parse(JSON.stringify(data.plan.itineraries));
+      var count=0;
+      for (var key in journeys){ //For each itinerary, check if better transfer options are possible
+          data.plan.itineraries[parseInt(key)+count].runnerField = false;
+          var newItin = addBetterItin(journeys[key],0);
+          if(newItin!="none"){ //Better itinerary found
+            newItin.runnerField = true;
+            data.plan.itineraries.splice(parseInt(key)+count, 0, newItin); //Insert new traveladvice
+            count++;
+          }
+      }
+      /*************************************************************
+      *************************************************************/
+      
+      var startDate = $('#planner-advice-list').find('.planner-advice-dateheader').last().html();
+      $.each( data.plan.itineraries , function( index, itin ){
+          var prettyStartDate = prettyDateEpoch(itin.startTime);
+          if (startDate != prettyStartDate){
+              $(('<div class="planner-advice-dateheader">'+prettyStartDate+'</div>')).insertAfter($('#planner-advice-list').find('.planner-advice-itinbutton').last());
+              itinButton(itin,'l').insertAfter($('#planner-advice-list').find('.planner-advice-dateheader').last());
+              startDate = prettyStartDate;
+          }else{
+              itinButton(itin,'l').insertAfter($('#planner-advice-list').find('.planner-advice-itinbutton').last());
+              
+          }
+          if(document.getElementById("planner-advice-list").childElementCount>11){
+                $('#planner-advice-list').find('.planner-advice-itinbutton').first().remove();
+                earlier_itineraries.push(itineraries.shift());
+            }
+      });
+      $('#planner-advice-later').button('reset');
+    });
+  }
+
+  while(document.getElementById("planner-advice-list").childNodes[1].className=='planner-advice-dateheader' &&
+          document.getElementById("planner-advice-list").childNodes[2].className=='planner-advice-dateheader'){
+    document.getElementById("planner-advice-list").childNodes[1].remove();
+  }
   return false;
 }
 
@@ -485,6 +551,7 @@ var itineraries = null;
 
 //Create a list of itineraries! Fill columns with advice.
 function legItem(leg){
+    console.log(leg.shortWalkTime);
     if(leg.shortWalkTime>0){
       var _legItem = $('<li class="list-group-item advice-leg" style="background-color : hsla(0, 100%, 50%, '+leg.shortWalkTime+');"><div></div></li>');
     }else{
@@ -551,10 +618,13 @@ function legItem(leg){
 }
 
 // Show list of itineraries. 
-function renderItinerary(idx,moveto){ //Input: number of itineraries and boolean to check formatting of advice
+function renderItinerary(id,moveto){ //Input: number of itineraries and boolean to check formatting of advice
     $('#planner-leg-list').html(''); //Initialize list
-    var itin = itineraries[idx]; //Number
-    //console.log(itin);
+    for (var index in itineraries){
+      if(itineraries[index].id==id){ //find correct itinerary to display
+        var itin = itineraries[index]; 
+      }
+    }
     $.each( itin.legs , function( index, leg ){ //Each itinerary has a leg with info. Append this to the list of advices
         $('#planner-leg-list').append(legItem(leg));
     });
@@ -567,15 +637,23 @@ function renderItinerary(idx,moveto){ //Input: number of itineraries and boolean
     $('#planner-advice-list').find('.btn').removeClass('active');
     $(this).addClass('active');
 }
-
+var itin_count = 0;
 //Somehow there is another itinbutton method? Same as previous, try deleting this part later.
-function itinButton(itin){
+function itinButton(itin,pos){
+    itin.id=itin_count;
     if(itin.runnerField==true){
-      var _itinButton = $('<button type="button" class="btn btn-default planner-advice-itinbutton greenButton" onclick="renderItinerary('+itineraries.length+',true)"></button>');
+      var _itinButton = $('<button type="button" class="btn btn-default planner-advice-itinbutton greenButton" onclick="renderItinerary('+itin.id+',true)"></button>');
     }else{
-      var _itinButton = $('<button type="button" class="btn btn-default planner-advice-itinbutton" onclick="renderItinerary('+itineraries.length+',true)"></button>');
+      var _itinButton = $('<button type="button" class="btn btn-default planner-advice-itinbutton" onclick="renderItinerary('+itin.id+',true)"></button>');
     }
-    itineraries.push(itin);
+    itin_count++;
+    if(pos=='l'){
+      itineraries.push(itin);
+    }
+    else{
+      itineraries.unshift(itin);
+    }
+    
     _itinButton.append('<b>'+timeFromEpoch(itin.startTime)+'</b>  <span class="glyphicon glyphicon-arrow-right"></span> <b>'+timeFromEpoch(itin.endTime)+'</b>');
     _itinButton.append('<div>'+Locale.amountTransfers(itin.transfers)+'</div>');
     return _itinButton;
@@ -647,6 +725,8 @@ function planItinerary(plannerreq){
   $.get( url, function( data ) { //This is the API call.
     $('#planner-leg-list').html(''); //Initialize again? meh
     itineraries = []; //Empty list of iterenaties
+    later_itineraries = [];
+    earlier_itineraries = [];
     $('#planner-advice-list').html('');//Initialize the advice lists again? por que
     $('.progress.progress-striped.active').remove(); //Remove progress bar
     if (!itineraryDataIsValid(data)){ //Check validity of API call.
@@ -659,7 +739,6 @@ function planItinerary(plannerreq){
 
 
     $('#planner-advice-list').append('<button type="button" class="btn btn-primary" id="planner-advice-earlier" data-loading-text="'+Locale.loading+'" onclick="earlierAdvice()">'+Locale.earlier+'</button>');
-    //console.log(data.plan.itineraries)
 
     $.each( data.plan.itineraries , function( index, itin ){ //Iterate over itineraries to append dattime info
         var prettyStartDate = prettyDateEpoch(itin.startTime);
@@ -667,7 +746,7 @@ function planItinerary(plannerreq){
             $('#planner-advice-list').append('<div class="planner-advice-dateheader">'+prettyStartDate+'</div>');
             startDate = prettyStartDate;
         }
-        $('#planner-advice-list').append(itinButton(itin));
+        $('#planner-advice-list').append(itinButton(itin,'l'));
     });
     //Option for late advice
     $('#planner-advice-list').append('<button type="button" class="btn btn-primary" id="planner-advice-later" data-loading-text="'+Locale.loading+'" onclick="laterAdvice()">'+Locale.later+'</button>');
@@ -683,15 +762,14 @@ function addBetterItin(itinArray,success){
     flag=0;
     var oldEndTime = itinArray.endTime  //Try to beat this arrival time
     var endDestination = itinArray.legs[itinArray.legs.length -1].to.lat+","+itinArray.legs[itinArray.legs.length -1].to.lon; //This is where we will be going eventually
-    //console.log("Checking new itin");
-    //console.log(itin); //Debugging
+
     previousLeg = itinArray.legs[0];//Initialize for first if statement; not really relevant
 
     for (var idx in itinArray.legs){ 
       leg=itinArray.legs[idx];
       
       if(leg.transitLeg == true && idx>1 && previousLeg.mode=="WALK" && !flag){ //Ignore first transit and find first transfer with a walk beforehand
-        console.log("New itin route");
+        console.log("Searching new route from:");
         console.log(leg.from.name + "<--->" +endDestination); //Debugging - See transfer transit suggested
 
         var plannerreq = {}; //Prepare new API request
@@ -730,11 +808,6 @@ function addBetterItin(itinArray,success){
 
             if(startTimeNewItin > (arriveTransfer + newWalkTimeLimit)  && newEndTime < oldEndTime){ //Display for now only if startTime is possible when ignoring walking times and endTime is faster
                 
-                console.log("start new "+epochtoIS08601time(startTimeNewItin));
-                console.log("arrival old "+epochtoIS08601time(arriveTransfer));
-                console.log("second walk"+previousWalkTime);
-                console.log(startTimeNewItin);
-                
                 var newJourneyLength = parseInt(idx)+ parseInt(itin2.legs.length); //New number of legs in journey
                 itinArray.legs.length = newJourneyLength;  // Reduce or increase this journeys legs
                 itinArray.transfers--;
@@ -744,7 +817,12 @@ function addBetterItin(itinArray,success){
                     itinArray.transfers++;
                   }
                 }
+                console.log(startTimeNewItin-arriveTransfer);
+                console.log(previousWalkTime);
                 previousLeg.shortWalkTime = 1-(startTimeNewItin-arriveTransfer)/(1000*previousWalkTime); //Percentage of time we have to walk faster
+                if(previousLeg.shortWalkTime<0){
+                    previousLeg.shortWalkTime=0.5;
+                }
                 previousLeg.usualWalkTime =  previousWalkTime;
                 previousLeg.newWalkTime = (startTimeNewItin - arriveTransfer)/1000;
                 itinArray.endTime = newEndTime; //New endtime
@@ -1076,15 +1154,15 @@ function setupAutoComplete(){
 function switchLocale() {
   // var _locale = $.extend({}, Locale);
   Locale = Locale[config['locale']] || Locale['en'];
-	$(".label-from").text(Locale.from);
-	$(".label-via").text(Locale.via);
-	$(".label-dest").text(Locale.to);
-	$(".label-time").text(Locale.time);
-	$(".label-date").text(Locale.date);
-	$(".label-edit").text(Locale.edit);
-	$(".label-plan").text(Locale.plan);
+  $(".label-from").text(Locale.from);
+  $(".label-via").text(Locale.via);
+  $(".label-dest").text(Locale.to);
+  $(".label-time").text(Locale.time);
+  $(".label-date").text(Locale.date);
+  $(".label-edit").text(Locale.edit);
+  $(".label-plan").text(Locale.plan);
 
-	$(".planner-options-timeformat").text(Locale.timeFormat);
+  $(".planner-options-timeformat").text(Locale.timeFormat);
 
   $("#planner-options-date").datepicker('option', {
       dateFormat: Locale.dateFormat, /* Also need this on init */
@@ -1094,10 +1172,10 @@ function switchLocale() {
   });
 
   $("#planner-options-date").attr('aria-label', Locale.dateAriaLabel);
-	$("#planner-options-from").attr('placeholder', Locale.geocoderInput).attr('title', Locale.from);
-	$("#planner-options-via").attr('placeholder', Locale.geocoderInput).attr('title', Locale.via);
-	$("#planner-options-dest").attr('placeholder', Locale.geocoderInput).attr('title', Locale.to);
-	$("#planner-options-submit").attr('data-loading-text', Locale.loading);
+  $("#planner-options-from").attr('placeholder', Locale.geocoderInput).attr('title', Locale.from);
+  $("#planner-options-via").attr('placeholder', Locale.geocoderInput).attr('title', Locale.via);
+  $("#planner-options-dest").attr('placeholder', Locale.geocoderInput).attr('title', Locale.to);
+  $("#planner-options-submit").attr('data-loading-text', Locale.loading);
 }
 
 

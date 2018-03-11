@@ -26,11 +26,8 @@
 .logorunning {
     display: inline-block;
     z-index: 2;
-    border: solid;
-    border-color: rgb(1, 101, 153);
     margin-left: 2%;
     margin-top: 1%;
-    box-shadow: 2px 2px 4px #000000;
 }
 
 .Navbar01 {

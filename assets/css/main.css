@@ -13,7 +13,7 @@ body, html {
 
       /* Full height */
       height: 100%; 
-  
+      min-height: 750px;
       /* Center and scale the image nicely */
       background-position: center;
       background-repeat: no-repeat;
@@ -38,11 +38,8 @@ background-color: grey;
 .logorunning {
 display: inline-block;
 z-index: 2;
-border: solid;
-border-color: rgb(1, 101, 153);
 margin-left: 2%;
 margin-top: 1%;
-box-shadow: 2px 2px 4px #000000;
 }
 
 /* testiing contact button met juiste positie */
@@ -88,21 +85,21 @@ font-weight: bold;
 margin: 5%;
 }
 
-
+#planner-options-desc{
+  color: white;
+}
 .firsttext h1 {
 /* display: inline-block; */
 color: white;
 font-family: Arial, Helvetica, sans-serif;
-/* font-weight: bold; */
-float: right;
 /* position: absolute; */
-margin-top: 5%;
-margin-right: 8%;
 font-size: 350%;
 text-shadow: 2px 2px 4px #000000;
 
 
 }
+
+    
 
 /* Navbar */
 /* Dropdown Button 
@@ -160,8 +157,10 @@ text-shadow: 2px 2px 4px #000000;
   margin-bottom: 1px;
   width: 100%;
   height: auto;
+  color: white;
   position: relative;
   display: block;
+  font-weight: 100;
 }
 
 .kopjefooter {
