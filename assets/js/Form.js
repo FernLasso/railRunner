@@ -562,7 +562,7 @@ function legItem(leg){
         if (leg.from.name == leg.to.name){
             return;
         }
-        if(leg.shortWalkTime>0){
+        if(leg.shortWalkTime>0 && leg.usualWalkTime>leg.newWalkTime){
           _legItem.append('<div class="list-group-item-heading"><h4 class="leg-header"><b>'+Locale.walk+'<span class="grey small" style="font-size: 14px;"> From '+leg.usualWalkTime+' to '+leg.newWalkTime+' seconds ('+Math.round(5*leg.usualWalkTime/leg.newWalkTime)+' km/h)</span></b></h4></div>');
         }
         else{
